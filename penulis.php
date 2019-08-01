@@ -94,6 +94,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM penulis ORDER BY id_penulis ASC")
                 <li><a href="buku.php">Data Buku</a></li>
                 <li><a href="penulis.php">Penulis</a></li>
                 <li><a href="kategori.php">Kategori</a></li>
+                <li><a href="peminjaman.php">Peminjaman</a></li>
                 <li><a href="index.php">Logout</a></li>    
               </ul>
             </nav>

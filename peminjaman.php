@@ -1,15 +1,19 @@
 <?php
-
+// konek pada file database
 include_once("config.php");
 
-$result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC");
+// memanggil prosedur untuk menampilkan data buku
+$result = mysqli_query($mysqli, "SELECT * FROM peminjaman ORDER BY id_peminjaman ASC");
 ?>
+
 <html>
-<head>    
-    <meta charset="utf-8">
+<head>  
+   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content=""> 
-    <title>Kategori</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Data Peminjaman</title>
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
@@ -36,35 +40,41 @@ $result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC
               </div>
             </header>
 
-    <center><h2><b>Kategori</b></h2><br/></center>
+    <center><h2><b>Data Peminjaman</b></h2><br/></center>
         <div class="page-heading">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-12">
-        <button onclick="window.location.href='tambah_kategori.php'" class="btn btn-primary" type="submit">Tambah Kategori</button>
+        <button onclick="window.location.href='tambah_peminjaman.php'" class="btn btn-primary" type="submit">Tambah Peminjaman</button>
 
         <br/><br/>
-</head>
-    <table width='80%' border=1>
 
-    <tr>
-        <th>ID kategori</th> <th>kategori</th> <th>Action</th>
-    </tr>
-    <?php  
-    while($data_kategori = mysqli_fetch_array($result)) {         
-        echo "<tr>";
-        echo "<td>".$data_kategori['id_kategori']."</td>";
-        echo "<td>".$data_kategori['kategori']."</td>";
-        echo "<td align='center'><a href='edit_kategori.php?id_kategori=$data_kategori[id_kategori]'>Edit</a> | <a href='delete_kategori.php?id_kategori=$data_kategori[id_kategori]'>Delete</a>";
-        // echo "<td align='center'><a href='totalbuku.php?id_penerbit=$data_buku[id_penerbit].'>".$data_buku['penerbit']."</td></tr>";
-    }
-    ?>
-    </table><form action="kategori.php" method="post" name="form1">
-        </div>
+            <center><table width='80%' border=1>
+
+            <tr>
+                <th>Nama Peminjam</th> <th>Nama Buku</th> <th>Jumlah Buku</th> <th>Tanggal Pinjam</th> <th>Tanggal Kembali</th> <th>Action</th>
+            </tr>
+            <?php  
+            while($data_peminjaman = mysqli_fetch_array($result)) {         
+                echo "<tr>";
+               // echo "<td>".$data_peminjaman['id_peminjaman']."</td>";
+                echo "<td>".$data_peminjaman['nama_peminjam']."</td>";
+                echo "<td>".$data_peminjaman['nama_buku']."</td>";
+                echo "<td>".$data_peminjaman['jumlah_buku']."</td>";
+                echo "<td>".$data_peminjaman['tgl_pinjam']."</td>";
+                echo "<td>".$data_peminjaman['tgl_kembali']."</td>";
+                echo "<td align='center'><a href='edit_peminjaman.php?id_peminjaman=$data_peminjaman[id_peminjaman]'>Edit</a> |
+                 <a href='delete_peminjaman.php?id_peminjaman=$data_peminjaman[id_peminjaman]'>Delete</a>";
+                
+            }
+            ?>
+            </table>
+            <form action="peminjaman.php" method="post" name="form1"></center>
+              </div>
                 </div>
               </div>
             </div>
-             <section class="contact-form">
+            <section class="contact-form">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-5">
@@ -115,5 +125,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC
     <script src="assets/js/transition.js"></script>
     <script src="assets/js/owl-carousel.js"></script>
     <script src="assets/js/custom.js"></script>
+
 </body>
 </html>

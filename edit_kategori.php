@@ -105,6 +105,7 @@ while($data_kategori = mysqli_fetch_array($result))
                 <li><a href="buku.php">Data Buku</a></li>
                 <li><a href="penulis.php">Penulis</a></li>
                 <li><a href="kategori.php">Kategori</a></li>
+                <li><a href="peminjaman.php">Peminjaman</a></li>
                 <li><a href="index.php">Logout</a></li>    
               </ul>
             </nav>

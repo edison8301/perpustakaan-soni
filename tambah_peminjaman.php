@@ -1,15 +1,14 @@
 <?php
-
-include_once("config.php");
-
-$result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC");
+include "config.php";
 ?>
 <html>
-<head>    
-    <meta charset="utf-8">
+<head>  
+   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content=""> 
-    <title>Kategori</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tambah Peminjaman</title>
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
@@ -19,7 +18,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-
 <body class="is-preload">
 
     <!-- Wrapper -->
@@ -36,35 +34,56 @@ $result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC
               </div>
             </header>
 
-    <center><h2><b>Kategori</b></h2><br/></center>
-        <div class="page-heading">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-12">
-        <button onclick="window.location.href='tambah_kategori.php'" class="btn btn-primary" type="submit">Tambah Kategori</button>
-
         <br/><br/>
-</head>
-    <table width='80%' border=1>
-
-    <tr>
-        <th>ID kategori</th> <th>kategori</th> <th>Action</th>
+	<form action="tambah_peminjaman.php" method="post" name="form1">
+	<table>
+	<tr> 
+        <td>Nama Peminjam :</td>
+        <td><input type="text" name="nama_peminjam"></td>
     </tr>
-    <?php  
-    while($data_kategori = mysqli_fetch_array($result)) {         
-        echo "<tr>";
-        echo "<td>".$data_kategori['id_kategori']."</td>";
-        echo "<td>".$data_kategori['kategori']."</td>";
-        echo "<td align='center'><a href='edit_kategori.php?id_kategori=$data_kategori[id_kategori]'>Edit</a> | <a href='delete_kategori.php?id_kategori=$data_kategori[id_kategori]'>Delete</a>";
-        // echo "<td align='center'><a href='totalbuku.php?id_penerbit=$data_buku[id_penerbit].'>".$data_buku['penerbit']."</td></tr>";
+	<tr> 
+    	<td>Nama Buku :</td>
+   		<td><input type="text" name="nama_buku"></td>
+    </tr>
+    <tr> 
+      <td>Jumlah Buku :</td>
+      <td><input type="text" name="jumlah_buku"></td>
+    </tr>
+     <tr> 
+      <td>Tanggal Pinjam :</td>
+      <td><input type="text" name="tgl_pinjam"></td>
+    </tr>
+     <tr> 
+      <td>Tanggal Kembali :</td>
+      <td><input type="text" name="tgl_kembali"></td>
+    </tr>
+    <tr> 
+        <td></td>
+        <td><input type="submit" name="Submit" value="Tambah"></td>
+    </tr>
+	</table>
+	</form>
+
+	<?php
+
+    // Check If form submitted, insert form data into users table.
+    if(isset($_POST['Submit'])) {
+        $nama_peminjam = $_POST['nama_peminjam'];
+        $nama_buku = $_POST['nama_buku'];
+        $jumlah_buku = $_POST['jumlah_buku'];
+        $tgl_pinjam = $_POST['tgl_pinjam'];
+        $tgl_kembali = $_POST['tgl_kembali'];
+        // include database connection file
+        include_once("config.php");
+
+        // Insert user data into table
+        $result = mysqli_query($mysqli, "INSERT INTO peminjaman(nama_peminjam,nama_buku,jumlah_buku,tgl_pinjam,tgl_kembali) VALUES('$nama_peminjam','$nama_buku','$jumlah_buku','$tgl_pinjam','$tgl_kembali')");
+
+        // Show message when user added
+        echo "Peminjaman Berhasil Ditambahkan !!. <a href='peminjaman.php'>Lihat Daftar</a>";
     }
     ?>
-    </table><form action="kategori.php" method="post" name="form1">
-        </div>
-                </div>
-              </div>
-            </div>
-             <section class="contact-form">
+     <section class="contact-form">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-5">

@@ -1,15 +1,48 @@
 <?php
-
+// include database connection file
 include_once("config.php");
 
-$result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC");
+// Check if form is submitted for kategori update, then redirect to homepage after update
+if(isset($_POST['update']))
+{  
+    $id_peminjaman=$_POST['id_peminjaman'];
+    $nama_peminjam=$_POST['nama_peminjam'];
+    $nama_buku=$_POST['nama_buku'];
+    $jumlah_buku=$_POST['jumlah_buku'];
+    $tgl_pinjam=$_POST['tgl_pinjam'];
+    $tgl_kembali=$_POST['tgl_kembali'];
+
+    // update kategori data
+    $result = mysqli_query($mysqli, "UPDATE peminjaman SET id_peminjaman='$id_peminjaman', nama_peminjam='$nama_peminjam', nama_buku='$nama_buku', jumlah_buku='$jumlah_buku', tgl_pinjam='$tgl_pinjam', tgl_kembali='$tgl_pinjam' WHERE id_peminjaman=$id_peminjaman");
+
+    // Redirect to homepage to display updated kategori in list
+    header("Location: peminjaman.php");
+}
+?>
+<?php
+// Display selected kategori data based on id
+// Getting id from url
+$id_peminjaman = $_GET['id_peminjaman'];
+// Fetech kategori data based on id
+$result = mysqli_query($mysqli, "SELECT * FROM peminjaman WHERE id_peminjaman=$id_peminjaman");
+while($data_peminjaman = mysqli_fetch_array($result))
+{
+    $id_peminjaman = $data_peminjaman['id_peminjaman'];
+    $nama_peminjam = $data_peminjaman['nama_peminjam'];
+    $nama_buku = $data_peminjaman['nama_buku'];
+    $jumlah_buku = $data_peminjaman['jumlah_buku'];
+    $tgl_pinjam = $data_peminjaman['tgl_pinjam'];
+    $tgl_kembali = $data_peminjaman['tgl_kembali'];
+}
 ?>
 <html>
 <head>    
-    <meta charset="utf-8">
+   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content=""> 
-    <title>Kategori</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Edit Peminjaman</title>
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
@@ -19,10 +52,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-
 <body class="is-preload">
-
-    <!-- Wrapper -->
     <div id="wrapper">
 
       <!-- Main -->
@@ -35,36 +65,37 @@ $result = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY id_kategori ASC
                 <a href="home.php">Perpustakaan</a>
               </div>
             </header>
+    <br/><br/>
 
-    <center><h2><b>Kategori</b></h2><br/></center>
-        <div class="page-heading">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-12">
-        <button onclick="window.location.href='tambah_kategori.php'" class="btn btn-primary" type="submit">Tambah Kategori</button>
-
-        <br/><br/>
-</head>
-    <table width='80%' border=1>
-
-    <tr>
-        <th>ID kategori</th> <th>kategori</th> <th>Action</th>
-    </tr>
-    <?php  
-    while($data_kategori = mysqli_fetch_array($result)) {         
-        echo "<tr>";
-        echo "<td>".$data_kategori['id_kategori']."</td>";
-        echo "<td>".$data_kategori['kategori']."</td>";
-        echo "<td align='center'><a href='edit_kategori.php?id_kategori=$data_kategori[id_kategori]'>Edit</a> | <a href='delete_kategori.php?id_kategori=$data_kategori[id_kategori]'>Delete</a>";
-        // echo "<td align='center'><a href='totalbuku.php?id_penerbit=$data_buku[id_penerbit].'>".$data_buku['penerbit']."</td></tr>";
-    }
-    ?>
-    </table><form action="kategori.php" method="post" name="form1">
-        </div>
-                </div>
-              </div>
-            </div>
-             <section class="contact-form">
+    <form name="update_peminjaman" method="post" action="edit_peminjaman.php">
+        <table border="0">
+            <tr> 
+                <td>Nama Peminjam:</td>
+                <td><input type="text" name="nama_peminjam" value=<?php echo $nama_peminjam;?>></td>
+            </tr>
+            <tr> 
+                <td>Nama Buku:</td>
+                <td><input type="text" name="nama_buku" value=<?php echo $nama_buku;?>></td>
+            </tr>
+            <tr> 
+                <td>Jumlah Buku:</td>
+                <td><input type="text" name="jumlah_buku" value=<?php echo $jumlah_buku;?>></td>
+            </tr>
+             <tr> 
+                <td>Tanggal Pinjam:</td>
+                <td><input type="text" name="tgl_pinjam" value=<?php echo $tgl_pinjam;?>></td>
+            </tr>
+              <tr> 
+                <td>Tanggal Kembali:</td>
+                <td><input type="text" name="tgl_kembali" value=<?php echo $tgl_kembali;?>></td>
+            </tr>
+            <tr>
+                <td><input type="hidden" name="id_peminjaman" value=<?php echo $_GET['id_peminjaman'];?>></td>
+                <td><input type="submit" name="update" value="Update"></td>
+            </tr>
+        </table>
+    </form>
+        <section class="contact-form">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-5">
