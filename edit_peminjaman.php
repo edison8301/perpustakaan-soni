@@ -83,11 +83,11 @@ while($data_peminjaman = mysqli_fetch_array($result))
             </tr>
              <tr> 
                 <td>Tanggal Pinjam:</td>
-                <td><input type="text" name="tgl_pinjam" value=<?php echo $tgl_pinjam;?>></td>
+                <td><input class="form-control" name="tgl_pinjam" type="date" value=<?php echo $tgl_pinjam;?>></td>
             </tr>
               <tr> 
                 <td>Tanggal Kembali:</td>
-                <td><input type="text" name="tgl_kembali" value=<?php echo $tgl_kembali;?>></td>
+                <td><input class="form-control" name="tgl_kembali" type="date" value=<?php echo $tgl_kembali;?>></td>
             </tr>
             <tr>
                 <td><input type="hidden" name="id_peminjaman" value=<?php echo $_GET['id_peminjaman'];?>></td>

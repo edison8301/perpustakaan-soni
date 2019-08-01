@@ -51,11 +51,11 @@ include "config.php";
     </tr>
      <tr> 
       <td>Tanggal Pinjam :</td>
-      <td><input type="text" name="tgl_pinjam"></td>
+      <td><input class="form-control" name="tgl_pinjam" type="date"/></td>
     </tr>
      <tr> 
       <td>Tanggal Kembali :</td>
-      <td><input type="text" name="tgl_kembali"></td>
+      <td><input class="form-control" name="tgl_kembali" type="date"/></td>
     </tr>
     <tr> 
         <td></td>
