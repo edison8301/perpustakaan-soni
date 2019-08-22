@@ -8,6 +8,8 @@ use app\models\KategoriSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * KategoriController implements the CRUD actions for Kategori model.
@@ -17,6 +19,30 @@ class KategoriController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function actionExportExcel()
+    {
+        $spreadsheet = new PhpSpreadsheet\spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+        $database =Kategori::find()
+        ->select('nama')
+        ->all();
+
+        $worksheet->setCellValue('A1', 'Nama');
+
+
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A2');
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attechment;filename="kategori.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function behaviors()
     {
         return [

@@ -31,6 +31,7 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
+                    ['label' => 'Dashboard', 'icon' => 'home', 'url' => ['/site']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
@@ -39,7 +40,7 @@
                         'icon' => 'share',
                         'url' => '#',
                         'items' => [
-                             ['label' => 'Anggota','icon' => 'user', 'url' => ['/anggota']],
+                    ['label' => 'Anggota','icon' => 'user', 'url' => ['/anggota']],
                     ['label' => 'Buku','icon' => 'book', 'url' => ['/buku']],
                     ['label' => 'Peminjaman','icon' => 'shopping-cart', 'url' => ['/peminjaman']],
                     ['label' => 'Kategori','icon' => 'tasks', 'url' => ['/kategori']],

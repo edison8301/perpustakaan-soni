@@ -8,6 +8,8 @@ use app\models\PenulisSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * PenulisController implements the CRUD actions for Penulis model.
@@ -17,6 +19,33 @@ class PenulisController extends Controller
     /**
      * {@inheritdoc}
      */
+     public function actionExportExcel()
+    {
+        $spreadsheet = new PhpSpreadsheet\spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+        $database =Penulis::find()
+        ->select('nama, alamat, telepon, email')
+        ->all();
+
+        $worksheet->setCellValue('A1', 'Nama');
+        $worksheet->setCellValue('B1', 'Alamat');
+        $worksheet->setCellValue('C1', 'Telepon');
+        $worksheet->setCellValue('D1', 'Email');
+
+
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A2');
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attechment;filename="penulis.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function behaviors()
     {
         return [

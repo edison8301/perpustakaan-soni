@@ -8,6 +8,8 @@ use app\models\PenerbitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * PenerbitController implements the CRUD actions for Penerbit model.
@@ -17,6 +19,33 @@ class PenerbitController extends Controller
     /**
      * {@inheritdoc}
      */
+     public function actionExportExcel()
+    {
+        $spreadsheet = new PhpSpreadsheet\spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+        $database =Penerbit::find()
+        ->select('nama, alamat, telepon, email')
+        ->all();
+
+        $worksheet->setCellValue('A1', 'Nama');
+        $worksheet->setCellValue('B1', 'Alamat');
+        $worksheet->setCellValue('C1', 'Telepon');
+        $worksheet->setCellValue('D1', 'Email');
+
+
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A2');
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attechment;filename="penerbit.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function behaviors()
     {
         return [

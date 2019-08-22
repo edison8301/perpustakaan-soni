@@ -8,6 +8,10 @@ use app\models\AnggotaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use mPDF;
+
 
 /**
  * AnggotaController implements the CRUD actions for Anggota model.
@@ -17,6 +21,33 @@ class AnggotaController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function actionExportExcel()
+    {
+        $spreadsheet = new PhpSpreadsheet\spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+        $database =Anggota::find()
+        ->select('nama, alamat, telepon, email')
+        ->all();
+
+        $worksheet->setCellValue('A1', 'Nama');
+        $worksheet->setCellValue('B1', 'Alamat');
+        $worksheet->setCellValue('C1', 'Telepon');
+        $worksheet->setCellValue('D1', 'Email');
+
+
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A2');
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attechment;filename="anggota.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function behaviors()
     {
         return [
@@ -28,6 +59,7 @@ class AnggotaController extends Controller
             ],
         ];
     }
+    
 
     /**
      * Lists all Anggota models.
@@ -55,6 +87,16 @@ class AnggotaController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+    public function actionGenPdf($id)
+    {
+        $pdf_content = $this->renderPartial('view-pdf', [
+            'model' => $this->findModel($id),
+        ]);
+        $mpdf = new \Mpdf\MpDF();
+        $mpdf->WriteHTML($pdf_content);
+        $mpdf->Output();
+        exit;
     }
 
     /**

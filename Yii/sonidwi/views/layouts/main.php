@@ -11,6 +11,9 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+if (class_exists('ramosisw\CImaterial\web\MaterialAsset')) {
+    ramosisw\CImaterial\web\MaterialAsset::register($this);
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -45,6 +48,7 @@ AppAsset::register($this);
             ['label' => 'Penerbit', 'url' => ['/penerbit/index']],
             ['label' => 'Penulis', 'url' => ['/penulis/index']],
             ['label' => 'Petugas', 'url' => ['/petugas/index']],
+            ['label' => 'Users', 'url' => ['/users/index']],
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],

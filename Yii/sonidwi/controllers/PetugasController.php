@@ -8,6 +8,8 @@ use app\models\PetugasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * PetugasController implements the CRUD actions for Petugas model.
@@ -17,6 +19,33 @@ class PetugasController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function actionExportExcel()
+    {
+        $spreadsheet = new PhpSpreadsheet\spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+        $database =Petugas::find()
+        ->select('nama, alamat, telepon, email')
+        ->all();
+
+        $worksheet->setCellValue('A1', 'Nama');
+        $worksheet->setCellValue('B1', 'Alamat');
+        $worksheet->setCellValue('C1', 'Telepon');
+        $worksheet->setCellValue('D1', 'Email');
+
+
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A2');
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attechment;filename="petugas.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function behaviors()
     {
         return [

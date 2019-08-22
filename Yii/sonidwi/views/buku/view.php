@@ -37,10 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_kategori',
             'sinopsis:ntext',
             [
-                 'label'=>'Sampul',
-                 'format'=>'raw',
-                 'value'=>Html::img(Yii::$app->request->baseUrl.'/uploads/'.$model->sampul,['width'=>'100','height'=>'100']),
-           ],
+              'attribute' => 'sampul',
+              'format' =>'raw',
+              'value' => function ($model){
+                if ($model->sampul != '') {
+                    return Html::img('repositorioBuku/'. $model->sampul,['class'=>'img-responsive','style' => 'height:100px', 'align'=>'center']);
+                }else{
+                  return '<div align="center"><h1>No Image</h1></div>';
+                }
+              },
+            ],
             'berkas',
         ],
     ]) ?>

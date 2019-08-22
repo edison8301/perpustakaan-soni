@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * BukuController implements the CRUD actions for Buku model.
@@ -18,6 +20,35 @@ class BukuController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function actionExportExcel()
+    {
+        $spreadsheet = new PhpSpreadsheet\spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+        $database =Buku::find()
+        ->select('nama, tahun_terbit,id_penulis, id_penerbit, id_kategori, sampul')
+        ->all();
+
+        $worksheet->setCellValue('A1', 'Nama');
+        $worksheet->setCellValue('B1', 'Tahun Terbit');
+        $worksheet->setCellValue('C1', 'Id Penulis');
+        $worksheet->setCellValue('D1', 'Id Penerbit');
+        $worksheet->setCellValue('E1', 'Id Kategori');
+        $worksheet->setCellValue('F1', 'Sampul');
+
+
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A2');
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attechment;filename="buku.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function behaviors()
     {
         return [

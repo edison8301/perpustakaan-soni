@@ -22,7 +22,14 @@
         "dmstr/yii2-adminlte-asset": "^2.1",
         "2amigos/yii2-date-picker-widget": "*",
         "ramosisw/yii2-material-dashboard": "dev-master",
-        "kartik-v/yii2-mpdf": "dev-master"
+        "kartik-v/yii2-mpdf": "^1.0",
+        "rudissaar/yii2-fpdf": "^1.1",
+        "mpdf/mpdf":"*",
+        "2amigos/yii2-table-export-widget": "*",
+        "johnitvn/yii2-ajaxcrud": "^2.1",
+        "moonlandsoft/yii2-phpexcel": "*",
+        "kartik-v/yii2-widget-fileinput": "@dev",
+        "2amigos/yii2-highcharts-widget": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

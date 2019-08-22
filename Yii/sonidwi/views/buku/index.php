@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Buku', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Eksport Excel', ['buku/export-excel'], ['class' => 'btn btn-round btn-danger']) ?>
+        <?= Html::a('Eksport Pdf', ['site/export-pdf'], ['class' => 'btn btn-round btn-danger']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -62,12 +64,22 @@ $this->params['breadcrumbs'][] = $this->title;
             }
             ],
             //'sinopsis:ntext',
-            'sampul',
+            [
+              'attribute' => 'sampul',
+              'format' =>'raw',
+              'value' => function ($model){
+                if ($model->sampul != '') {
+                    return Html::img('repositorioBuku/'. $model->sampul,['class'=>'img-responsive','style' => 'height:100px', 'align'=>'center']);
+                }else{
+                  return '<div align="center"><h1>No Image</h1></div>';
+                }
+              },
+            ],
             //'berkas',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
-
+ 
 </div>

@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Penerbit', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Eksport Excel', ['penerbit/export-excel'], ['class' => 'btn btn-round btn-danger']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

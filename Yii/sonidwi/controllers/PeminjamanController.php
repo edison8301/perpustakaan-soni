@@ -8,6 +8,8 @@ use app\models\PeminjamanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * PeminjamanController implements the CRUD actions for Peminjaman model.
@@ -17,6 +19,33 @@ class PeminjamanController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function actionExportExcel()
+    {
+        $spreadsheet = new PhpSpreadsheet\spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+        $database =Peminjaman::find()
+        ->select('id_buku, id_anggota, tanggal_pinjam, tanggal_kembali')
+        ->all();
+
+        $worksheet->setCellValue('A1', 'Id Buku');
+        $worksheet->setCellValue('B1', 'Id Anggota');
+        $worksheet->setCellValue('C1', 'Tanggal Pinjam');
+        $worksheet->setCellValue('D1', 'Tanggal Kembali');
+
+
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A2');
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attechment;filename="peminjaman.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function behaviors()
     {
         return [
