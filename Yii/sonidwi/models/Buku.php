@@ -86,4 +86,8 @@ class Buku extends \yii\db\ActiveRecord
  
        return $arrYears2;
 }
+public function getBukuCount()
+    {
+        return static::find()->count();
+    }
 }

@@ -56,4 +56,18 @@ class Peminjaman extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Anggota::className(), ['id'=>'id_anggota']);
     }
+     public static function getGrafikPeminjamanByBulan()
+     {
+        $list = [];
+        for ($i=1; $i <=12  ; $i++) { 
+            $peminjaman = Peminjaman::find()
+            ->andWhere(['between', 'tanggal_pinjam', date('Y')."-".$i."-1", date('Y')."-".$i."-31"])->count();
+            $list[] = $peminjaman;
+        }
+        return $list;
+     }
+     public function getPeminjamanCount()
+    {
+        return static::find()->count();
+    }
 }
