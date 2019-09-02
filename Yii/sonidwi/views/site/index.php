@@ -127,14 +127,10 @@ $this->title = 'Selamat Datang Di Perpustakaan';
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="perpustakaan-soni/Yii/sonidwi/web/index.php?r=petugas" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="perpustakaan-soni/Yii/sonidwi/web/index.php?r=kategoripetugas" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        
-      </div>
-    </div>
-</div>
-<div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                     <h3 class="box-title">Grafik Peminjaman Buku</h3>
                     <ul class="nav navbar-right panel_toolbox">
@@ -168,3 +164,7 @@ $this->title = 'Selamat Datang Di Perpustakaan';
             ]);?>
                          
         </div>
+        
+      </div>
+    </div>
+</div>
