@@ -53,9 +53,9 @@ class Buku extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nama' => 'Nama',
             'tahun_terbit' => 'Tahun Terbit',
-            'id_penulis' => 'Id Penulis',
-            'id_penerbit' => 'Id Penerbit',
-            'id_kategori' => 'Id Kategori',
+            'id_penulis' => 'Penulis',
+            'id_penerbit' => 'Penerbit',
+            'id_kategori' => 'Kategori',
             'sinopsis' => 'Sinopsis',
             'sampul' => 'Sampul',
             'berkas' => 'Berkas',
@@ -71,7 +71,7 @@ class Buku extends \yii\db\ActiveRecord
     }
     public  function getKategori()
     {
-        return $this->hasOne(Kategori::className(), ['id'=>'id_penulis']);
+        return $this->hasOne(Kategori::className(), ['id'=>'id_kategori']);
     }
     public function getCaritahun() {
        $yearNow = date("Y");
@@ -90,4 +90,9 @@ public function getBukuCount()
     {
         return static::find()->count();
     }
+    public static function getList()
+    {
+        return \yii\helpers\ArrayHelper::map(self::find()->all(), 'id', 'nama');
+    }
+
 }

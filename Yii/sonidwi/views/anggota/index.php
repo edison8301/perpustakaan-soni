@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
    <!-- <h1><?= Html::encode($this->title) ?></h1>-->
 
     <p>
-        <?= Html::a('Create Anggota', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Eksport Excel', ['anggota/export-excel'], ['class' => 'btn btn-round btn-danger']) ?>
-        <?= Html::a('Eksport Pdf', ['site/export-pdfa'], ['class' => 'btn btn-round btn-danger']) ?>
+        <?= Html::a('Tambah Anggota', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-print"></i> Eksport Excel', ['anggota/export-excel'], ['class' => 'btn btn-round btn-danger']) ?>
+        <?= Html::a('<i class="fa fa-print"></i> Eksport Pdf', ['site/export-pdfa'], ['class' => 'btn btn-round btn-danger']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -31,7 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'header' => 'No',
+                'headerOptions' => ['style' => 'text-align:center'],
+                'contentOptions' => ['style' => 'text-align:center']
+            ],
 
            // 'id',
             'nama',

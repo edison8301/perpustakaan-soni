@@ -94,26 +94,33 @@ class BukuController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_kategori=null, $id_penulis=null, $id_penerbit=null)
     {
         $model = new Buku();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->sampul = UploadedFile::getInstance($model, 'sampul');
-            if($model->sampul!=null){
-            $picture = $model->nama.'-'.$model->id;
-            $model->sampul->saveAs('repositorioBuku/'.$picture.'.'.$model->sampul->extension);
-            $model ->url = 'repositorioBuku/'.$picture.'.'.$model->sampul->extension;
-        }
-            $model->save();
+        $model->id_kategori = $id_kategori;
+        $model->id_penulis = $id_penulis;
+        $model->id_penerbit = $id_penerbit;
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $sampul = UploadedFile::getInstance($model, 'sampul');
+          //  $berkas = UploadedFile::getInstance($model, 'berkas');
+
+            $model->sampul = time() . '_' . $sampul->name;
+            //$model->berkas = time() . '_' . $berkas->name;
+
+            $model->save(false);
+
+            $sampul->saveAs(Yii::$app->basePath . '/web/upload/sampul/' . $model->sampul);
+           // $berkas->saveAs(Yii::$app->basePath . '/web/upload/berkas/' . $model->berkas);
 
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        }
+        
 
         return $this->render('create', [
             'model' => $model,
         ]);
-    }
     }
 
     /**
@@ -125,15 +132,16 @@ class BukuController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = new Buku();
+       $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $model->sampul = UploadedFile::getInstance($model, 'sampul');
             if($model->sampul!=null){
             $picture = $model->nama.'-'.$model->id;
-            $model->sampul->saveAs('repositorioBuku/'.$picture.'.'.$model->sampul->extension);
-            $model ->url = 'repositorioBuku/'.$picture.'.'.$model->sampul->extension;
+            $model->sampul->saveAs('web/upload/sampul/'.$picture.'.'.$model->sampul->extension);
+            $model ->url = 'web/upload/sampul/'.$picture.'.'.$model->sampul->extension;
         }
             $model->save();
 

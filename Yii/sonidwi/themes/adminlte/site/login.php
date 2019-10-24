@@ -1,48 +1,60 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\captcha\Captcha;
+
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Login';
+$this->params['breadcrumbs'][] = $this->title;
+// $fieldOptions1 = [
+//     'options' => ['class' => 'form-group has-feedback'],
+//     'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+// ];
 
-$fieldOptions1 = [
-    'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
-];
-
-$fieldOptions2 = [
-    'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
-];
+// $fieldOptions2 = [
+//     'options' => ['class' => 'form-group has-feedback'],
+//     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
+// ];
 ?>
 
 <div class="login-box">
-    <div class="login-logo">
-        <a href="#"><b>Admin</b>LTE</a>
-    </div>
+    <div  class="login-pages">
+         <div class="login-box-body">
+            <div class="login-logo">
+              <img src="../web/img/polindra.png" style="height: 150px;"><br>
+              <p style="font-weight: bold; color: #964B00 ">PERPUSTAKAAN</p>
+              <p class="txt-l" style="font-weight: bold">Politeknik Negeri Indramayu</p>
+            </div>
+
+    <!-- <div class="login-logo">
+        <a href="#"><b>PERPUSTAKAAN</b></a>
+    </div> -->
     <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+    </div>
+    <div class="box-body">
+        <p class="login-box-msg">Silahkan login terlebih dahulu</p>
 
-        <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
+        <?php $form = ActiveForm::begin([
+                'id' => 'login-form',
+                'options' => ['class' => 'form-signin'],
+        ]); ?>
 
-        <?= $form
-            ->field($model, 'username', $fieldOptions1)
-            ->label(false)
-            ->textInput(['placeholder' => $model->getAttributeLabel('username')]) ?>
+        <?= $form->field($model, 'username')->textInput(['placeholder'=>'Username'])->label(false); ?>
 
-        <?= $form
-            ->field($model, 'password', $fieldOptions2)
-            ->label(false)
-            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
+        <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Password'])->label(false); ?>
+
+        
 
         <div class="row">
-            <div class="col-xs-8">
+           <div class="col-xs-8">
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
-            </div>
+            </div> 
             <!-- /.col -->
             <div class="col-xs-4">
                 <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
@@ -52,18 +64,17 @@ $fieldOptions2 = [
 
 
         <?php ActiveForm::end(); ?>
-
         <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in
-                using Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign
-                in using Google+</a>
+        <p>- OR -</p>
+        <div class="row">
+            <div class="social-auth-links text-center">
+                <?= Html::a('Register', ['site/register'], ['class' => 'btn btn-primary']) ?>
+            </div>
+             <div class="social-auth-links text-center">
+                <?= Html::a('Forget Password', ['site/forget'], ['class' => 'btn btn-primary']) ?>
+            </div>
         </div>
-        <!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
 
     </div>
     <!-- /.login-box-body -->

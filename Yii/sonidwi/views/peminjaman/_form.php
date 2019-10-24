@@ -16,7 +16,13 @@ use dosamigos\datepicker\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_buku')->textInput() ?>
+    <?= $form->field($model, 'id_buku')->widget(Select2::classname(), [
+        'data' => Buku::getList(),
+        'options' => ['placeholder' => 'Select a state ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);?>
 
     <?= $form->field($model, 'id_anggota')->widget(Select2::classname(), [
         'data' => Anggota::getList(),

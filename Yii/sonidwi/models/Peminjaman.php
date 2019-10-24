@@ -42,21 +42,29 @@ class Peminjaman extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_buku' => 'Id Buku',
-            'id_anggota' => 'Id Anggota',
+            'id_buku' => 'Buku',
+            'id_anggota' => 'Anggota',
             'tanggal_pinjam' => 'Tanggal Pinjam',
             'tanggal_kembali' => 'Tanggal Kembali',
         ];
     }
-     public  function getBuku()
+    public function getBuku()
     {
-        return $this->hasMany(Buku::className(), ['id'=>'id_buku']);
+        return $this->hasOne(Buku::class, ['id' => 'id_buku']);
     }
     public  function getAnggota()
     {
         return $this->hasOne(Anggota::className(), ['id'=>'id_anggota']);
     }
-     public static function getGrafikPeminjamanByBulan()
+    public function getManyBuku()
+    {
+        return $this->hasMany(Buku::class, ['id_buku' => 'id']);
+    }
+    public function getPeminjamanCount()
+    {
+        return static::find()->count();
+    }
+    public static function getGrafikPeminjamanByBulan()
      {
         $list = [];
         for ($i=1; $i <=12  ; $i++) { 
@@ -66,8 +74,4 @@ class Peminjaman extends \yii\db\ActiveRecord
         }
         return $list;
      }
-     public function getPeminjamanCount()
-    {
-        return static::find()->count();
-    }
 }

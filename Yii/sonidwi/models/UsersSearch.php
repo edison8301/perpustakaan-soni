@@ -2,18 +2,17 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Users;
 
 /**
- * UsersSearch represents the model behind the search form about `app\models\Users`.
+ * UsersSearch represents the model behind the search form of `app\models\Users`.
  */
 class UsersSearch extends Users
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class UsersSearch extends Users
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -43,6 +42,8 @@ class UsersSearch extends Users
     {
         $query = Users::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +56,7 @@ class UsersSearch extends Users
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'id_anggota' => $this->id_anggota,

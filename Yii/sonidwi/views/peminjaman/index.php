@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <p>
-        <?= Html::a('Create Peminjaman', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Peminjaman', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Eksport Excel', ['peminjaman/export-excel'], ['class' => 'btn btn-round btn-danger']) ?>
     </p>
 
@@ -33,8 +33,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
            // 'id',
-            'id_buku',
+            //'id_buku',
             [
+            'attribute' => 'id_buku',
+            'headerOptions' => ['style' => 'text-align:center'],
+            'contentOptions' => ['style' => 'text-align:center'],
+            'value' => function($data){
+                return @$data->buku->nama;
+            }
+            ],
+           // 'id_anggota',
+             [
             'attribute' => 'id_anggota',
             'headerOptions' => ['style' => 'text-align:center'],
             'contentOptions' => ['style' => 'text-align:center'],

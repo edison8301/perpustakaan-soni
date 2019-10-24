@@ -96,7 +96,7 @@ table {
      <td><?= $data->penulis->nama ?></td>
      <td><?= $data->penerbit->nama ?></td>
      <td><?= $data->kategori->nama ?></td>
-     <td><?= $data->sampul ?></td>
+     <td><img src="<?= Yii::$app->request->baseUrl.'/upload/sampul/'.$data['sampul'] ?>" width="100px"></td>
     </tr>
     
  <?php $i++; } ?>

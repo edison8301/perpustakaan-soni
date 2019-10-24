@@ -26,11 +26,15 @@
         "rudissaar/yii2-fpdf": "^1.1",
         "mpdf/mpdf":"*",
         "2amigos/yii2-table-export-widget": "*",
-        "johnitvn/yii2-ajaxcrud": "^2.1",
         "moonlandsoft/yii2-phpexcel": "*",
         "kartik-v/yii2-widget-fileinput": "@dev",
+        "2amigos/yii2-highcharts-widget": "~1.0",
         "2amigos/yii2-chartjs-widget": "~2.0",
-        "2amigos/yii2-highcharts-widget": "~1.0"
+        "sjaakp/yii2-gcharts": "*",
+        "phpoffice/phpword": "*",
+        "2amigos/yii2-google-maps-library" : "*",
+        "2amigos/yii2-tinymce-widget": "~1.1",
+        "miloschuman/yii2-highcharts-widget": "^6.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

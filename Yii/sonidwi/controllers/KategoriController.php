@@ -54,6 +54,17 @@ class KategoriController extends Controller
             ],
         ];
     }
+    public function  actionStus()
+    {
+        $sql='SELECT count(id),nama FROM Kategori GROUP BY nama';
+        
+        $dataProvider=new CSqlDataProvider($sql,array(
+                            'keyField' => 'id',
+        ));
+        $this->render('stus',array(
+            'dataProvider'=>$dataProvider,
+        ));
+    }
 
     /**
      * Lists all Kategori models.

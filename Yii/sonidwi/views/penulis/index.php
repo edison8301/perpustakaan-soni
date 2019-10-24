@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--<h1><?= Html::encode($this->title) ?></h1>-->
 
     <p>
-        <?= Html::a('Create Penulis', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Penulis', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Eksport Excel', ['penulis/export-excel'], ['class' => 'btn btn-round btn-danger']) ?>
     </p>
 
